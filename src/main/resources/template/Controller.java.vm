@@ -27,6 +27,7 @@ import com.zycz.common.utils.Result;
  * @email ${email}
  * @date ${datetime}
  */
+@Slf4j
 @RestController
 @RequestMapping("${pathName}")
 public class ${className}Controller {
