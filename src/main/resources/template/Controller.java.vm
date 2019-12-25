@@ -1,7 +1,10 @@
 package ${package}.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,89 +14,90 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package}.entity.${className};
 import ${package}.service.${className}Service;
-import com.zycz.common.utils.PageUtils;
-import com.zycz.common.utils.Query;
 import com.zycz.common.utils.Result;
-
-
 
 
 /**
  * ${comments}
- * 
+ *
  * @author ${author}
  * @email ${email}
  * @date ${datetime}
  */
 @Slf4j
 @RestController
-@RequestMapping("${pathName}")
+@RequestMapping("/${pathName}" )
 public class ${className}Controller {
-	@Autowired
-	private ${className}Service ${classname}Service;
-	
-	/**
-	 * 列表
-	 */
-	@RequestMapping("/list")
-	@RequiresPermissions("${pathName}:list")
-	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
-        Query query = new Query(params);
+    @Autowired
+    private ${className}Service ${classname}Service;
 
-		List<${className}> ${classname}List = ${classname}Service.queryList(query);
-		int total = ${classname}Service.queryTotal(query);
-		
-		PageUtils pageUtil = new PageUtils(${classname}List, total, query.getLimit(), query.getPage());
-		
-		return Result.ok().put("page", pageUtil);
-	}
-	
-	
-	/**
-	 * 信息
-	 */
-	@RequestMapping("/info/{${pk.attrname}}")
-	@RequiresPermissions("${pathName}:info")
-	public Result info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-		${className} ${classname} = ${classname}Service.queryObject(${pk.attrname});
-		
-		return Result.ok().put("${classname}", ${classname});
-	}
-	
-	/**
-	 * 保存
-	 */
-	@RequestMapping("/save")
-	@RequiresPermissions("${pathName}:save")
-	public Result save(@RequestBody ${className} ${classname}){
-		${classname}Service.save(${classname});
-		
-		return Result.ok();
-	}
-	
-	/**
-	 * 修改
-	 */
-	@RequestMapping("/update")
-	@RequiresPermissions("${pathName}:update")
-	public Result update(@RequestBody ${className} ${classname}){
-		${classname}Service.update(${classname});
-		
-		return Result.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@RequestMapping("/delete")
-	@RequiresPermissions("${pathName}:delete")
-	public Result delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
-		${classname}Service.deleteBatch(${pk.attrname}s);
-		
-		return Result.ok();
-	}
-	
+    /**
+     * 列表
+     */
+    @RequestMapping("/list" )
+    @RequiresPermissions("${pathName}:list" )
+    public Result list(@RequestParam Map<String, Object> params) {
+        // 查询列表数据，并实现分页
+        int currentPage = 1;
+        int size = 20;
+        Object requestPage = params.get("p" );
+        Object requestSize = params.get("s" );
+        if (requestPage != null && requestSize != null) {
+            currentPage = Integer.parseInt(requestPage.toString());
+            size = Integer.parseInt(requestSize.toString());
+        }
+        IPage<${className}> page = new Page<>();
+        page.setCurrent(currentPage);
+        page.setSize(size);
+        QueryWrapper<MiniApp> queryWrapper = new QueryWrapper<>();
+        page = miniAppService.page(page, queryWrapper);
+        return Result.ok("success" ).put("result", page);
+    }
+
+
+    /**
+     * 查询详细信息
+     */
+    @RequestMapping("/info/{${pk.attrname}}" )
+    @RequiresPermissions("${pathName}:info" )
+    public Result info(@PathVariable("${pk.attrname}" ) ${pk.attrType} ${pk.attrname}) {
+        ${className} ${classname} =${classname}Service.getById(${pk.attrname});
+        return Result.ok().put("${classname}", ${classname});
+    }
+
+    /**
+     * 保存
+     */
+    @RequestMapping("/save" )
+    @RequiresPermissions("${pathName}:save" )
+    public Result save(@RequestBody ${className} ${classname}) {
+            ${classname}Service.save(${classname});
+        return Result.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update" )
+    @RequiresPermissions("${pathName}:update" )
+    public Result update(@RequestBody ${className} ${classname}) {
+            ${classname}Service.updateById(${classname});
+        return Result.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete" )
+    @RequiresPermissions("${pathName}:delete" )
+    public Result delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s) {
+            ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+        return Result.ok();
+    }
+
 }
