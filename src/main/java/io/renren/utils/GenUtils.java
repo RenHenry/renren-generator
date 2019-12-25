@@ -36,9 +36,9 @@ public class GenUtils {
         templates.add("template/Service.java.vm");
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Controller.java.vm");
-        templates.add("template/list.html.vm");
-        templates.add("template/list.js.vm");
-        templates.add("template/menu.sql.vm");
+//        templates.add("template/list.html.vm");
+//        templates.add("template/list.js.vm");
+//        templates.add("template/menu.sql.vm");
         return templates;
     }
 
