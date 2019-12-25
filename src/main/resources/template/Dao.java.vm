@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date ${datetime}
  */
 @Mapper
+@Repository
 public interface ${className}Dao extends BaseDao<${className}> {
 
 }
