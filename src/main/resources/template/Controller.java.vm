@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.entity.${className};
 import ${package}.service.${className}Service;
-import io.renren.common.utils.PageUtils;
-import io.renren.common.utils.Query;
-import io.renren.common.utils.R;
+import com.zycz.common.utils.PageUtils;
+import com.zycz.common.utils.Query;
+import com.zycz.common.utils.Result;
 
 
 
@@ -38,7 +38,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("${pathName}:list")
-	public R list(@RequestParam Map<String, Object> params){
+	public Result list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -47,7 +47,7 @@ public class ${className}Controller {
 		
 		PageUtils pageUtil = new PageUtils(${classname}List, total, query.getLimit(), query.getPage());
 		
-		return R.ok().put("page", pageUtil);
+		return Result.ok().put("page", pageUtil);
 	}
 	
 	
@@ -56,10 +56,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping("/info/{${pk.attrname}}")
 	@RequiresPermissions("${pathName}:info")
-	public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+	public Result info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 		${className} ${classname} = ${classname}Service.queryObject(${pk.attrname});
 		
-		return R.ok().put("${classname}", ${classname});
+		return Result.ok().put("${classname}", ${classname});
 	}
 	
 	/**
@@ -67,10 +67,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("${pathName}:save")
-	public R save(@RequestBody ${className} ${classname}){
+	public Result save(@RequestBody ${className} ${classname}){
 		${classname}Service.save(${classname});
 		
-		return R.ok();
+		return Result.ok();
 	}
 	
 	/**
@@ -78,10 +78,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("${pathName}:update")
-	public R update(@RequestBody ${className} ${classname}){
+	public Result update(@RequestBody ${className} ${classname}){
 		${classname}Service.update(${classname});
 		
-		return R.ok();
+		return Result.ok();
 	}
 	
 	/**
@@ -89,10 +89,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("${pathName}:delete")
-	public R delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+	public Result delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
 		${classname}Service.deleteBatch(${pk.attrname}s);
 		
-		return R.ok();
+		return Result.ok();
 	}
 	
 }
