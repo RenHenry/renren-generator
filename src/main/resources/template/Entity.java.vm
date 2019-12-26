@@ -6,6 +6,7 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
@@ -23,12 +24,15 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ${className} implements Serializable{
-private static final long serialVersionUID=1L;
+    private static final long serialVersionUID=1L;
 
-#foreach ($column in $columns)
-/**
- * $column.comments
- */
-private $column.attrType $column.attrname;
-#end
+    #foreach ($column in $columns)
+    /**
+         * $column.comments
+         */
+    #if($column.columnName == $pk.columnName)
+    @TableId
+    #end
+    private $column.attrType $column.attrname;
+    #end
 }
