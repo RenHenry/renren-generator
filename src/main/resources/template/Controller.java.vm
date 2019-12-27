@@ -48,7 +48,7 @@ public class ${className}Controller {
         page.setSize(size);
         QueryWrapper<MiniApp> queryWrapper = new QueryWrapper<>();
         page = miniAppService.page(page, queryWrapper);
-        return Result.ok("success" ).put("result", page);
+        return Result.ok("success").put("result", page);
     }
 
 
@@ -59,7 +59,7 @@ public class ${className}Controller {
     @RequiresPermissions("${pathName}:info" )
     public Result info(@PathVariable("${pk.attrname}" ) ${pk.attrType} ${pk.attrname}) {
         ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
-        return Result.ok().put("${classname}", ${classname});
+        return Result.ok("success").put("${classname}", ${classname});
     }
 
     /**
@@ -69,7 +69,7 @@ public class ${className}Controller {
     @RequiresPermissions("${pathName}:save" )
     public Result save(@RequestBody ${className} ${classname}) {
         ${classname}Service.save(${classname});
-        return Result.ok();
+        return Result.ok("success");
     }
 
     /**
@@ -79,7 +79,7 @@ public class ${className}Controller {
     @RequiresPermissions("${pathName}:update" )
     public Result update(@RequestBody ${className} ${classname}) {
         ${classname}Service.updateById(${classname});
-        return Result.ok();
+        return Result.ok("success");
     }
 
     /**
@@ -89,7 +89,7 @@ public class ${className}Controller {
     @RequiresPermissions("${pathName}:delete" )
     public Result delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s) {
         ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
-        return Result.ok();
+        return Result.ok("success");
     }
 
 }
