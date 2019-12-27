@@ -59,7 +59,7 @@ public class ${className}Controller {
     @RequiresPermissions("${pathName}:info" )
     public Result info(@PathVariable("${pk.attrname}" ) ${pk.attrType} ${pk.attrname}) {
         ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
-        return Result.ok("success").put("${classname}", ${classname});
+        return Result.ok("success").put("result", ${classname});
     }
 
     /**
