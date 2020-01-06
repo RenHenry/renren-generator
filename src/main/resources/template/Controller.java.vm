@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package}.entity.${className};
 import ${package}.service.${className}Service;
-import com.zycz.common.utils.Result;
+import com.zycz.common.dto.Result;
 
 /**
  * ${comments}
@@ -46,8 +46,8 @@ public class ${className}Controller {
         Page<${className}> page = new Page<>();
         page.setCurrent(currentPage);
         page.setSize(size);
-        QueryWrapper<MiniApp> queryWrapper = new QueryWrapper<>();
-        page = miniAppService.page(page, queryWrapper);
+        QueryWrapper<${className}> queryWrapper = new QueryWrapper<>();
+        page = ${classname}Service.page(page, queryWrapper);
         return Result.ok("success").put("result", page);
     }
 
